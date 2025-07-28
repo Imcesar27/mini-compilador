@@ -1,0 +1,29 @@
+// Programa de ejemplo para probar el compilador
+var radio = 5;
+var pi = 3.14159;
+
+// Calcular el área de un círculo
+function calcularArea(r) {
+    var area = pi * r * r;
+    return area;
+}
+
+// Programa principal
+var resultado = calcularArea(radio);
+print("El área del círculo es: ");
+print(resultado);
+
+// Ejemplo con condicionales
+if (resultado > 50) {
+    print("Es un círculo grande");
+} else {
+    print("Es un círculo pequeño");
+}
+
+// Ejemplo con bucle
+var contador = 1;
+while (contador <= 5) {
+    print("Iteración número: ");
+    print(contador);
+    contador = contador + 1;
+}
