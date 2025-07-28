@@ -1,6 +1,8 @@
 # main.py
 from lexer import Lexer
 from tokens import TokenType
+from parser import Parser
+from ast_printer import ASTPrinter
 
 def test_lexer():
     # Código de prueba
@@ -104,35 +106,138 @@ def test_from_file(filename):
         
         print(f"\nTotal de tokens: {len(tokens)}")
         
+        # Parsear
+        print("\n\n=== ANÁLISIS SINTÁCTICO ===")
+        parser = Parser(tokens)
+        ast = parser.parse()
+        
+        if parser.errors:
+            print("❌ Errores encontrados durante el parseo:")
+            for error in parser.errors:
+                print(f"   - {error}")
+        else:
+            print("✓ Parseo exitoso!\n")
+            print("=== ÁRBOL DE SINTAXIS ABSTRACTA (AST) ===")
+            printer = ASTPrinter()
+            printer.print_ast(ast)
+        
     except FileNotFoundError:
         print(f"❌ Error: No se encontró el archivo '{filename}'")
         print(f"   Asegúrate de que el archivo existe en la misma carpeta que main.py")
     except Exception as e:
         print(f"❌ Error al procesar el archivo: {e}")
 
-if __name__ == "__main__":
-    # Menú de opciones
-    print("=== MINI COMPILADOR - ANALIZADOR LÉXICO ===")
-    print("1. Ejecutar pruebas predefinidas")
-    print("2. Procesar archivo test.txt")
-    print("3. Procesar otro archivo")
-    print("4. Todas las pruebas")
+def test_parser():
+    """Prueba el parser con código predefinido"""
+    test_code = """
+    // Declaración de variables
+    var x = 10;
+    var y = 20;
     
-    opcion = input("\nElige una opción (1-4): ")
+    // Función simple
+    function suma(a, b) {
+        return a + b;
+    }
+    
+    // Condicional
+    if (x < y) {
+        print("x es menor que y");
+    } else {
+        print("x es mayor o igual");
+    }
+    
+    // Bucle while
+    while (x < 15) {
+        x = x + 1;
+        print(x);
+    }
+    
+    // Llamada a función
+    var resultado = suma(5, 3);
+    print(resultado);
+    """
+    
+    print("=== PRUEBA DEL PARSER ===")
+    print("=== CÓDIGO FUENTE ===")
+    print(test_code)
+    
+    # Tokenizar
+    lexer = Lexer(test_code)
+    tokens = lexer.tokenize()
+    
+    # Parsear
+    print("\n=== ANÁLISIS SINTÁCTICO ===")
+    parser = Parser(tokens)
+    ast = parser.parse()
+    
+    if parser.errors:
+        print("❌ Errores encontrados:")
+        for error in parser.errors:
+            print(f"   - {error}")
+    else:
+        print("✓ Parseo exitoso!\n")
+        print("=== ÁRBOL DE SINTAXIS ABSTRACTA (AST) ===")
+        printer = ASTPrinter()
+        printer.print_ast(ast)
+
+def test_parser_errors():
+    """Prueba el manejo de errores del parser"""
+    print("\n\n=== PRUEBA DE MANEJO DE ERRORES ===")
+    
+    error_cases = [
+        ("var x = ;", "Falta valor en asignación"),
+        ("if (x < 10 { print(x); }", "Falta paréntesis de cierre"),
+        ("function test( { }", "Falta parámetros y paréntesis"),
+        ("x = 10", "Falta punto y coma"),
+        ("print(\"hola\";", "Falta paréntesis de cierre")
+    ]
+    
+    for code, description in error_cases:
+        print(f"\nPrueba: {description}")
+        print(f"Código: {code}")
+        
+        try:
+            lexer = Lexer(code)
+            tokens = lexer.tokenize()
+            parser = Parser(tokens)
+            ast = parser.parse()
+            
+            if parser.errors:
+                print(f"✓ Error detectado: {parser.errors[0]}")
+            else:
+                print("❌ No se detectó el error esperado")
+        except Exception as e:
+            print(f"✓ Error detectado: {e}")
+
+if __name__ == "__main__":
+    # Menú de opciones actualizado
+    print("=== MINI COMPILADOR ===")
+    print("1. Probar solo el Analizador Léxico")
+    print("2. Probar el Parser con código predefinido")
+    print("3. Procesar archivo test.txt (Léxico + Sintáctico)")
+    print("4. Procesar otro archivo")
+    print("5. Probar manejo de errores")
+    print("6. Todas las pruebas")
+    
+    opcion = input("\nElige una opción (1-6): ")
     
     if opcion == "1":
         test_lexer()
-        test_error_handling()
     elif opcion == "2":
-        test_from_file("test.txt")
+        test_parser()
     elif opcion == "3":
+        test_from_file("test.txt")
+    elif opcion == "4":
         filename = input("Ingresa el nombre del archivo: ")
         test_from_file(filename)
-    elif opcion == "4":
+    elif opcion == "5":
+        test_parser_errors()
+    elif opcion == "6":
         test_lexer()
-        test_error_handling()
+        test_parser()
+        test_parser_errors()
         test_from_file("test.txt")
     else:
         print("Opción no válida")
     
-    print("\n\n=== ANALIZADOR LÉXICO COMPLETADO ✓ ===")
+    print("\n\n=== ANÁLISIS COMPLETADO ✓ ===")

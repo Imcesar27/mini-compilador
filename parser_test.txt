@@ -1,0 +1,70 @@
+// Programa más complejo para probar el parser
+
+// Variables globales
+var contador = 0;
+var limite = 10;
+const PI = 3.14159;
+
+// Función para calcular factorial
+function factorial(n) {
+    if (n <= 1) {
+        return 1;
+    } else {
+        return n * factorial(n - 1);
+    }
+}
+
+// Función con múltiples parámetros
+function potencia(base, exponente) {
+    var resultado = 1;
+    var i = 0;
+    
+    while (i < exponente) {
+        resultado = resultado * base;
+        i = i + 1;
+    }
+    
+    return resultado;
+}
+
+// Programa principal
+print("Calculando factoriales:");
+
+for (var i = 1; i <= 5; i = i + 1) {
+    var fact = factorial(i);
+    print(fact);
+}
+
+// Prueba de expresiones complejas
+var x = 5;
+var y = 3;
+var z = (x + y) * 2 - 1;
+
+if (z > 10 && z < 20) {
+    print("z está entre 10 y 20");
+} else {
+    if (z <= 10) {
+        print("z es menor o igual a 10");
+    } else {
+        print("z es mayor que 20");
+    }
+}
+
+// Prueba de operadores lógicos
+var a = true;
+var b = false;
+
+if (a || b && !a) {
+    print("Expresión lógica compleja");
+}
+
+// Bucle anidado
+var suma = 0;
+for (var i = 1; i <= 3; i = i + 1) {
+    for (var j = 1; j <= 3; j = j + 1) {
+        suma = suma + i * j;
+    }
+}
+
+print("Suma total:");
+print(suma);
