@@ -3,6 +3,7 @@ from lexer import Lexer
 from tokens import TokenType
 from parser import Parser
 from ast_printer import ASTPrinter
+from symbol_table_builder import SymbolTableBuilder
 
 def test_lexer():
     # Código de prueba
@@ -120,6 +121,22 @@ def test_from_file(filename):
             print("=== ÁRBOL DE SINTAXIS ABSTRACTA (AST) ===")
             printer = ASTPrinter()
             printer.print_ast(ast)
+            
+            # Construir tabla de símbolos
+            print("\n\n=== CONSTRUCCIÓN DE TABLA DE SÍMBOLOS ===")
+            builder = SymbolTableBuilder()
+            symbol_table = builder.build(ast)
+            
+            if builder.errors:
+                print("⚠️  Advertencias encontradas:")
+                for error in builder.errors:
+                    print(f"   - {error}")
+            else:
+                print("✓ Tabla de símbolos construida exitosamente!")
+            
+            # Mostrar la tabla
+            symbol_table.print_table()
+            symbol_table.print_scope_tree()
         
     except FileNotFoundError:
         print(f"❌ Error: No se encontró el archivo '{filename}'")
@@ -209,17 +226,77 @@ def test_parser_errors():
         except Exception as e:
             print(f"✓ Error detectado: {e}")
 
+def test_symbol_table():
+    """Prueba específica de la tabla de símbolos"""
+    test_code = """
+    // Variables globales
+    var global_var = 100;
+    const PI = 3.14159;
+    
+    // Función con parámetros
+    function calcular(x, y) {
+        var resultado = x + y;
+        return resultado;
+    }
+    
+    // Variables en diferentes ámbitos
+    var a = 10;
+    if (a > 5) {
+        var b = 20;
+        var c = a + b;
+    }
+    
+    // Bucle con su propio ámbito
+    for (var i = 0; i < 10; i = i + 1) {
+        var temp = i * 2;
+    }
+    
+    // Uso de variables no declaradas (debe generar error)
+    z = 50;
+    
+    // Intento de modificar constante (debe generar error)
+    PI = 3.14;
+    """
+    
+    print("=== PRUEBA DE TABLA DE SÍMBOLOS ===")
+    print("=== CÓDIGO FUENTE ===")
+    print(test_code)
+    
+    # Tokenizar
+    lexer = Lexer(test_code)
+    tokens = lexer.tokenize()
+    
+    # Parsear
+    parser = Parser(tokens)
+    ast = parser.parse()
+    
+    if not parser.errors:
+        # Construir tabla de símbolos
+        print("\n=== CONSTRUCCIÓN DE TABLA DE SÍMBOLOS ===")
+        builder = SymbolTableBuilder()
+        symbol_table = builder.build(ast)
+        
+        if builder.errors:
+            print("\n⚠️  Advertencias y errores semánticos:")
+            for error in builder.errors:
+                print(f"   - {error}")
+        
+        # Mostrar la tabla
+        symbol_table.print_table()
+        symbol_table.print_scope_tree()
+
 if __name__ == "__main__":
     # Menú de opciones actualizado
     print("=== MINI COMPILADOR ===")
     print("1. Probar solo el Analizador Léxico")
     print("2. Probar el Parser con código predefinido")
-    print("3. Procesar archivo test.txt (Léxico + Sintáctico)")
+    print("3. Procesar archivo test.txt (Léxico + Sintáctico + Símbolos)")
     print("4. Procesar otro archivo")
     print("5. Probar manejo de errores")
-    print("6. Todas las pruebas")
+    print("6. Probar tabla de símbolos")
+    print("7. Todas las pruebas")
     
-    opcion = input("\nElige una opción (1-6): ")
+    opcion = input("\nElige una opción (1-7): ")
     
     if opcion == "1":
         test_lexer()
@@ -233,9 +310,12 @@ if __name__ == "__main__":
     elif opcion == "5":
         test_parser_errors()
     elif opcion == "6":
+        test_symbol_table()
+    elif opcion == "7":
         test_lexer()
         test_parser()
         test_parser_errors()
+        test_symbol_table()
         test_from_file("test.txt")
     else:
         print("Opción no válida")
