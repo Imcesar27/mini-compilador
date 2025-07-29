@@ -1,4 +1,6 @@
-# parser.py
+# parser.py Parser para el lenguaje Lox
+# Este módulo implementa el parser para el lenguaje Lox, capaz de analizar
+# declaraciones, sentencias y expresiones, generando un árbol de sintaxis abstracta (AST).
 from tokens import Token, TokenType
 from ast_nodes import *
 

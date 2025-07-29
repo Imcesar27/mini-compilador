@@ -1,4 +1,4 @@
-# compiler_gui.py
+# compiler_gui.py Interfaz gráfica completa del compilador
 import tkinter as tk
 from tkinter import ttk, scrolledtext, filedialog, messagebox
 import os

@@ -1,4 +1,4 @@
-# symbol_table.py
+# symbol_table.py Tabla de símbolos
 from enum import Enum, auto
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Any

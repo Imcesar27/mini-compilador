@@ -1,4 +1,4 @@
-# main.py
+# main.py Prueba del compilador
 from lexer import Lexer
 from tokens import TokenType
 from parser import Parser

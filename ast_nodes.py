@@ -1,4 +1,4 @@
-# ast_nodes.py
+# ast_nodes.py - Definición de los nodos del AST
 from abc import ABC, abstractmethod
 
 class ASTNode(ABC):

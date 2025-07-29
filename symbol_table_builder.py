@@ -1,4 +1,4 @@
-# symbol_table_builder.py
+# symbol_table_builder.py Construye la tabla de símbolos a partir del AST
 from ast_nodes import ASTVisitor
 from symbol_table import SymbolTable, SymbolType, DataType, SymbolTableError, infer_data_type
 

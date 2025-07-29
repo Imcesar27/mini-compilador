@@ -1,4 +1,4 @@
-# intermediate_code.py
+# intermediate_code.py Generador de código intermedio
 from enum import Enum, auto
 from dataclasses import dataclass
 from typing import Optional, Union, List

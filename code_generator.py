@@ -1,4 +1,4 @@
-# code_generator.py
+# code_generator.py Generador de código intermedio
 from ast_nodes import ASTVisitor
 from intermediate_code import IntermediateCode, OpCode
 from tokens import TokenType

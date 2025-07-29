@@ -1,4 +1,4 @@
-# lexer.py
+# lexer.py Lector de tokens
 from tokens import Token, TokenType, KEYWORDS
 
 class Lexer:

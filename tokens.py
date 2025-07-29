@@ -1,4 +1,4 @@
-# tokens.py
+# tokens.py Modulo de tokens
 from enum import Enum, auto
 
 class TokenType(Enum):

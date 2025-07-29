@@ -1,4 +1,4 @@
-# ast_printer.py
+# ast_printer.py Imprime el AST en formato de árbol
 from ast_nodes import ASTVisitor
 
 class ASTPrinter(ASTVisitor):

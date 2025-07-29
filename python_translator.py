@@ -1,4 +1,4 @@
-# python_translator.py
+# python_translator.py Traductor de código intermedio a Python
 from intermediate_code import IntermediateCode, OpCode
 from typing import List, Dict
 

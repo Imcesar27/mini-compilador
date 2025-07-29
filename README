@@ -1,0 +1,111 @@
+# Mini Compilador
+
+Un compilador educativo que traduce un lenguaje de programación simple a Python.
+
+## 🚀 Inicio Rápido
+
+### Requisitos
+- Python 3.6+
+- tkinter (incluido en Python)
+
+### Instalación
+1. Clona o descarga el proyecto
+2. No requiere instalación de dependencias adicionales
+
+### Uso
+
+#### Opción 1: Interfaz Gráfica
+```bash
+python run_gui.py
+```
+
+#### Opción 2: Línea de Comandos
+```bash
+python main.py
+```
+
+## 📋 Sintaxis del Lenguaje
+
+### Declaraciones
+```javascript
+var x = 10;              // Variable
+const PI = 3.14;         // Constante  
+function suma(a, b) {    // Función
+    return a + b;
+}
+```
+
+### Control de Flujo
+```javascript
+// Condicional
+if (x > 5) {
+    print("Mayor");
+} else {
+    print("Menor");
+}
+
+// Bucles
+while (x < 10) {
+    x = x + 1;
+}
+
+for (var i = 0; i < 5; i = i + 1) {
+    print(i);
+}
+```
+
+### Operadores
+- Aritméticos: `+`, `-`, `*`, `/`, `%`
+- Comparación: `<`, `>`, `<=`, `>=`, `==`, `!=`
+- Lógicos: `&&`, `||`, `!`
+
+## 🔧 Ejemplo Completo
+
+```javascript
+// ejemplo.txt
+var radio = 5;
+const PI = 3.14159;
+
+function areaCirculo(r) {
+    return PI * r * r;
+}
+
+var area = areaCirculo(radio);
+print("El área es:");
+print(area);
+```
+
+## 📂 Estructura del Proyecto
+
+```
+mini-compilador/
+├── main.py          # Programa principal
+├── run_gui.py       # Ejecutor de GUI
+├── compiler_gui.py  # Interfaz gráfica
+├── lexer.py         # Analizador léxico
+├── parser.py        # Analizador sintáctico
+├── code_generator.py # Generador de código
+└── test.txt         # Archivo de ejemplo
+```
+
+## ✨ Características
+
+- ✅ Análisis léxico (tokenización)
+- ✅ Análisis sintáctico (AST)
+- ✅ Tabla de símbolos
+- ✅ Generación de código intermedio
+- ✅ Traducción a Python ejecutable
+- ✅ Interfaz gráfica moderna
+
+## 🎨 Capturas
+
+La interfaz gráfica incluye:
+- Editor de código
+- Visualización de tokens
+- Árbol sintáctico
+- Tabla de símbolos
+- Código generado
+
+## 📜 Licencia
+
+Proyecto educativo de libre uso.

@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 
 # Código generado automáticamente
-
+# Este código es una traducción de un pseudocódigo a Python.
 # Variables temporales
 t1 = None
 t2 = None
